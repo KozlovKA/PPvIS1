@@ -152,5 +152,45 @@ public class Neo {
         setColumns(sizeCol);
     }
 
+    void check() {
+        boolean flag0 = true;
+        boolean flagE = true;
+        boolean flagD = true;
+        boolean flagLower = true;
+        boolean flagHiher = true;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (rows == columns) {
+                    System.out.println("Квадратная\t");
+                }
+                {
+                    if (matrix[i][j] != 0)
+                        flag0 = false;
+
+                    if (i != j) {
+                        if (matrix[i][j] != 0) {
+                            flagD = false;
+                            flagE = false;
+                        }
+                    } else {
+                        if (matrix[i][j] != 1)
+                            flagE = false;
+                    }
+                }
+                if (matrix[i][j] == matrix[j][i]) {
+                    System.out.println("Симметрическая \t");
+
+                }
+                if (matrix[rows - i - 1][columns - j - 1] != 0) {
+                    flagLower = false;
+
+                }
+            }
+        }
+        if (!flagLower) {
+            System.out.println("Треугольная");
+
+        }
+    }
 
 }

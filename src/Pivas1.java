@@ -143,6 +143,8 @@ public class Pivas1 {
                     neo.extractSubMatrix(rowStart, rowEnd, colStart, colEnd);
                     neo.show();
                     break;
+                case 5:
+                    neo.
 
                 case 6:
                     neo.transpone();
