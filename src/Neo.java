@@ -153,20 +153,18 @@ public class Neo {
     }
 
     void check() {
+        boolean flagSim = true;
         boolean flag0 = true;
         boolean flagE = true;
         boolean flagD = true;
         boolean flagLower = true;
-        boolean flagHiher = true;
+        boolean flagHigher = true;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                if (rows == columns) {
-                    System.out.println("Квадратная\t");
-                }
-                {
-                    if (matrix[i][j] != 0)
-                        flag0 = false;
+                if (matrix[i][j] != 0)
+                    flag0 = false;
 
+                if (columns == rows) {
                     if (i != j) {
                         if (matrix[i][j] != 0) {
                             flagD = false;
@@ -176,20 +174,52 @@ public class Neo {
                         if (matrix[i][j] != 1)
                             flagE = false;
                     }
-                }
-                if (matrix[i][j] == matrix[j][i]) {
-                    System.out.println("Симметрическая \t");
 
-                }
-                if (matrix[rows - i - 1][columns - j - 1] != 0) {
-                    flagLower = false;
+                    if (matrix[i][j] != matrix[j][i]) {
+                        flagSim = false;
 
+                    }
+                } else {
+                    flagD = false;
+                    flagE = false;
+                    flagSim = false;
                 }
             }
         }
-        if (!flagLower) {
-            System.out.println("Треугольная");
-
+        for (int i = 0; i < rows; i++) {
+            for (int j = i + 1; j < columns; j++) {
+                if (matrix[i][j] != 0) {
+                    flagHigher = false;
+                }
+            }
+        }
+        for (int i = rows - 1; i >= 0; i--) {
+            for (int j = i - 1; j >= 0; j--) {
+                if (matrix[i][j] != 0) {
+                    flagLower = false;
+                }
+            }
+        }
+        if (rows == columns) {
+            System.out.println("Квадратная\t");
+            if (flagHigher) {
+                System.out.println("Верхняя треугольная");
+            }
+            if (flagLower) {
+                System.out.println("Нижняя треугольная");
+            }
+            if (flagSim) {
+                System.out.println("Симетрическая");
+            }
+            if (flagE) {
+                System.out.println("Единичная");
+            }
+            if (flagD) {
+                System.out.println("Диагональная");
+            }
+        }
+        if (flag0) {
+            System.out.println("Нулевая");
         }
     }
 

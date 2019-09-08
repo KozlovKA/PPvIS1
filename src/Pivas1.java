@@ -144,7 +144,8 @@ public class Pivas1 {
                     neo.show();
                     break;
                 case 5:
-                    neo.
+                    neo.check();
+                    break;
 
                 case 6:
                     neo.transpone();
