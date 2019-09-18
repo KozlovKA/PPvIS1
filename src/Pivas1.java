@@ -9,8 +9,8 @@ public class Pivas1 {
         Neo neo = new Neo(5, 5);
         Scanner input = new Scanner(System.in);
 
-        boolean k = true;
-        while (k) {
+        boolean isExit = false;
+        while (!isExit) {
             System.out.println(MAIN_MENU);
             int mainChoice = input.nextInt();
             switch (mainChoice) {
@@ -21,15 +21,15 @@ public class Pivas1 {
                         case 1:
                             System.out.println("Введите количество удаляемых столбов:");
 
-                            int nomer_stolba = input.nextInt();
-                            int[] stolbi = new int[nomer_stolba];
+                            int columnToDelete = input.nextInt();
+                            int[] columnsToDelete = new int[columnToDelete];
                             System.out.println("Номера удаляемых столбов:");
 
-                            for (int i = 0; i < nomer_stolba; i++) {
-                                stolbi[i] = input.nextInt();
+                            for (int i = 0; i < columnToDelete; i++) {
+                                columnsToDelete[i] = input.nextInt();
                             }
-                            for (int i = 0; i < nomer_stolba; i++) {
-                                neo.izmenenie_stolba(stolbi[i] - i);
+                            for (int i = 0; i < columnToDelete; i++) {
+                                neo.removeColumn(columnsToDelete[i] - i);
                                 neo.setColumns(neo.getColumns() - 1);
                                 System.out.println();
                             }
@@ -38,15 +38,15 @@ public class Pivas1 {
                             break;
                         case 2:
                             System.out.println("Введите количество удаляемых строк:");
-                            int nomer_stroki = input.nextInt();
+                            int rowToDelete = input.nextInt();
 
-                            int[] stroki = new int[nomer_stroki];
+                            int[] rowsToDelete = new int[rowToDelete];
                             System.out.println("Номера удаляемых строк:");
-                            for (int i = 0; i < nomer_stroki; i++) {
-                                stroki[i] = input.nextInt();
+                            for (int i = 0; i < rowToDelete; i++) {
+                                rowsToDelete[i] = input.nextInt();
                             }
-                            for (int i = 0; i < nomer_stroki; i++) {
-                                neo.izmenenie_stroci(stroki[i] - i);
+                            for (int i = 0; i < rowToDelete; i++) {
+                                neo.removeRow(rowsToDelete[i] - i);
                                 neo.setRows(neo.getRows() - 1);
                                 System.out.println();
                             }
@@ -54,27 +54,27 @@ public class Pivas1 {
                             break;
                         case 3:
                             System.out.println("Введите количество удаляемых столбов и строк соответственно:");
-                            int nomer_stolb = input.nextInt();
-                            int nomer_strok = input.nextInt();
+                            rowToDelete = input.nextInt();
+                            columnToDelete = input.nextInt();
                             System.out.println("Номера удаляемых столбов:");
-                            int[] stolb = new int[nomer_stolb];
-                            int[] strok = new int[nomer_strok];
+                            rowsToDelete = new int[rowToDelete];
+                            columnsToDelete = new int[columnToDelete];
 
-                            for (int i = 0; i < nomer_stolb; i++) {
-                                stolb[i] = input.nextInt();
+                            for (int i = 0; i < rowToDelete; i++) {
+                                rowsToDelete[i] = input.nextInt();
                             }
-                            for (int i = 0; i < nomer_stolb; i++) {
-                                neo.izmenenie_stolba(stolb[i] - i);
+                            for (int i = 0; i < rowToDelete; i++) {
+                                neo.removeColumn(rowsToDelete[i] - i);
                                 neo.setColumns(neo.getColumns() - 1);
                                 System.out.println();
                             }
 
                             System.out.println("Номера удаляемых строк:");
-                            for (int i = 0; i < nomer_strok; i++) {
-                                strok[i] = input.nextInt();
+                            for (int i = 0; i < columnToDelete; i++) {
+                                columnsToDelete[i] = input.nextInt();
                             }
-                            for (int i = 0; i < nomer_strok; i++) {
-                                neo.izmenenie_stroci(strok[i] - i);
+                            for (int i = 0; i < columnToDelete; i++) {
+                                neo.removeRow(columnsToDelete[i] - i);
                                 neo.setRows(neo.getRows() - 1);
                                 System.out.println();
                             }
@@ -83,14 +83,14 @@ public class Pivas1 {
                     break;
                 case 2:
                     System.out.println("1.Добавить столбец\n2.Добавить строку\n3.Добавить строку и столбец\n");
-                    int vibor1 = input.nextInt();
-                    switch (vibor1) {
+                    int choice = input.nextInt();
+                    switch (choice) {
                         case 1:
                             System.out.println("Введите количество добавляемых столбов:");
                             int nomer_stolb = input.nextInt();
 
                             for (int i = 0; i < nomer_stolb; i++) {
-                                neo.add_stolb();
+                                neo.addColumn();
                                 neo.setColumns(neo.getColumns() + 1);
                                 System.out.println();
                             }
@@ -101,7 +101,7 @@ public class Pivas1 {
                             int nomer_str = input.nextInt();
 
                             for (int i = 0; i < nomer_str; i++) {
-                                neo.add_str();
+                                neo.addRow();
                                 neo.setRows(neo.getRows() + 1);
                                 System.out.println();
                             }
@@ -113,12 +113,12 @@ public class Pivas1 {
                             int nomer_strok = input.nextInt();
 
                             for (int i = 0; i < nomer_stolbov; i++) {
-                                neo.add_stolb();
+                                neo.addColumn();
                                 neo.setColumns(neo.getColumns() + 1);
                                 System.out.println();
                             }
                             for (int i = 0; i < nomer_strok; i++) {
-                                neo.add_str();
+                                neo.addRow();
                                 neo.setRows(neo.getRows() + 1);
                                 System.out.println();
                             }
@@ -152,7 +152,7 @@ public class Pivas1 {
                     neo.show();
                     break;
                 case 7:
-                    k = false;
+                    isExit = true;
                     break;
             }
         }

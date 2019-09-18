@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Neo {
+class Neo {
 
     private int rows;
     private int columns;
@@ -24,6 +24,20 @@ public class Neo {
 
     public void setColumns(int columns) {
         this.columns = columns;
+    }
+
+    int[][] getMatrix() {
+        return matrix;
+    }
+
+    public void setMatrix(int[][] matrix) {
+        this.matrix = matrix;
+    }
+
+    Neo(int rows, int columns, int[][] matrix) {
+        this.rows = rows;
+        this.columns = columns;
+        this.matrix = matrix;
     }
 
     public Neo(int rows, int columns) throws FileNotFoundException {
@@ -50,81 +64,64 @@ public class Neo {
         System.out.println();
     }
 
-    void izmenenie_stroci(int stoka) {       // delete 1 row and 1 columns
+    void removeRow(int rowToDelete) {       // delete 1 row and 1 columns
 
-        int[][] m1 = new int[rows - 1][columns];
-//
-        int deli;
-        deli = stoka;
-        //delj = stolbi;
+        int[][] newMatrix = new int[rows - 1][columns];
         for (int i = 0, ln = 0; ln < rows - 1; ) {
-            if (i != deli - 1) {
+            if (i != rowToDelete - 1) {
                 for (int j = 0, cn = 0; cn < columns; j++, cn++) {
-                    //if (j==delj-1) j++;
-                    m1[ln][cn] = matrix[i][j];
+                    newMatrix[ln][cn] = matrix[i][j];
                 }
                 i++;
                 ln++;
             } else i++;
         }
-        matrix = m1;
+        matrix = newMatrix;
     }
 
-    public int[][] izmenenie_stolba(int stolb) {
-
-        int[][] m1 = new int[rows][columns - 1];
-        int delj;
-
-        delj = stolb;
+    void removeColumn(int columnToDelete) {
+        int[][] newMatrix = new int[rows][columns - 1];
         for (int i = 0, ln = 0; ln < rows; i++) {
             for (int j = 0, cn = 0; cn < columns - 1; j++, cn++) {
-                if (j == delj - 1) {
+                if (j == columnToDelete - 1) {
                     j++;
                 }
-                m1[ln][cn] = matrix[i][j];
+                newMatrix[ln][cn] = matrix[i][j];
             }
             ln++;
         }
-        matrix = m1;
-        return matrix;
+        matrix = newMatrix;
     }
 
-    void add_stolb() {
-        int[][] m2 = new int[rows][columns + 1];
+    void addColumn() {
+        int[][] newMatrix = new int[rows][columns + 1];
         for (int i = 0; i < rows; i++) {
-
             for (int j = 0; j <= columns; j++) {
-
                 if (j == columns) {
-
-                    m2[i][j] = 1 + (int) (Math.random() * 10);
-
+                    newMatrix[i][j] = 1 + (int) (Math.random() * 10);
                 } else {
-
-                    m2[i][j] = matrix[i][j];
+                    newMatrix[i][j] = matrix[i][j];
                 }
-
             }
-
         }
-        matrix = m2;
+        matrix = newMatrix;
     }
 
-    void add_str() {
-        int[][] m2 = new int[rows + 1][columns];
+    void addRow() {
+        int[][] newMatrix = new int[rows + 1][columns];
         for (int i = 0; i <= rows; i++) {
             for (int j = 0; j < columns; j++) {
                 if (i == rows) {
-                    m2[i][j] = 1 + (int) (Math.random() * 10);
+                    newMatrix[i][j] = 1 + (int) (Math.random() * 10);
                 } else {
-                    m2[i][j] = matrix[i][j];
+                    newMatrix[i][j] = matrix[i][j];
                 }
             }
         }
-        matrix = m2;
+        matrix = newMatrix;
     }
 
-    public void transpone() {
+    void transpone() {
         for (int i = 0; i < columns; i++) {
             for (int j = i + 1; j < rows; j++) {
                 int temp = matrix[i][j];
@@ -134,18 +131,18 @@ public class Neo {
         }
     }
 
-    public void extractSubMatrix(int rowStart, int rowEnd, int colStart, int colEnd) {
+    void extractSubMatrix(int rowStart, int rowEnd, int colStart, int colEnd) {
 
 
-        int sizeRow = rowEnd - rowStart;
-        int sizeCol = colEnd - colStart;
+        int sizeRow = rowEnd - rowStart + 1;
+        int sizeCol = colEnd - colStart + 1;
 
         int[][] result = new int[sizeRow][sizeCol];
 
-        for (int i = rowStart; i < rowEnd; i++) {
-            for (int j = colStart; j < colEnd; j++) {
-                int x = i - rowStart;
-                int y = j - colStart;
+        for (int i = rowStart - 1; i < rowEnd; i++) {
+            for (int j = colStart - 1; j < colEnd; j++) {
+                int x = i - rowStart + 1;
+                int y = j - colStart + 1;
                 result[x][y] = matrix[i][j];
             }
         }
