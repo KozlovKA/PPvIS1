@@ -135,6 +135,8 @@ public class Neo {
     }
 
     public void extractSubMatrix(int rowStart, int rowEnd, int colStart, int colEnd) {
+
+
         int sizeRow = rowEnd - rowStart;
         int sizeCol = colEnd - colStart;
 
